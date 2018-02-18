@@ -2,12 +2,10 @@
 `timescale 1ns / 1ps
 
 // module declaration for counter
-module counter(clk, reset, enable, counter_output);
+module counter(clk, counter_output);
 
 // inputs for module
 input  logic  clk;
-input  logic  reset;
-input  logic  enable;
 
 // outputs for module
 output logic  [7:0] counter_output;
@@ -30,17 +28,7 @@ end
 // Sequential logic
 always_ff @ (posedge clk)
 begin
-  if (reset == 1'b1)
-  begin
-    counter_register <= 0;
-  end
-  else
-  begin
-    if (enable == 1'b1)
-    begin
-    counter_register <= counter_next;
-    end
-  end
+  counter_register <= counter_next;
 end
 
 // The end
