@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 module counter_tb;
 
-logic clk = 10;
+logic clk = 1;
 logic [7:0] counter_output = 0;
 integer i;
 
@@ -10,9 +10,10 @@ counter counter_instance(.clk(clk), .counter_output(counter_output));
 
 initial
 begin
-  for (i=0; i<100; i++) begin
-//    #1 clk = ~clk;
-    $display("half clock cycle: %d, clk signal: %b, counter: %d", i, clk, counter_output);
+  $display("Initial counter output is %d", counter_output);
+  for (i=0; i<20; i++) begin
+    $display("half clock cycle: %d, time: %d, clk signal: %b, counter output: %d", i, $time, clk, counter_output);
+    #1 clk = ~clk;
   end
 end
 

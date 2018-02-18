@@ -17,7 +17,7 @@ logic  [7:0] counter_register = 0;
 // Combinational logic
 always_comb
 begin
-  counter_output = counter_register + 1;
+  counter_output = counter_register + 1'b1;
 end
 
 // Sequential logic
