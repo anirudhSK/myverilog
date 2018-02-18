@@ -2,17 +2,19 @@
 `timescale 1ns / 1ps
 
 // module declaration for counter
-module counter(clk, counter_output);
+module counter(clk, reset, enable, counter_output);
 
 // inputs for module
 input  logic  clk;
+input  logic  reset;
+input  logic  enable;
 
 // outputs for module
 output logic  [7:0] counter_output;
 
 // Internal state and wires
 // State is anything that's written in an always_ff
-logic  [7:0] counter_register = 0;
+logic  [7:0] counter_register = 120;
 
 // Combinational logic
 always_comb
@@ -23,7 +25,17 @@ end
 // Sequential logic
 always_ff @ (posedge clk)
 begin
-  counter_register <= counter_output;
+  if (reset == 1'b1)
+  begin
+    counter_register <= 0;
+  end
+  else
+  begin
+    if (enable == 1'b1)
+    begin
+    counter_register <= counter_output;
+    end
+  end
 end
 
 // The end
