@@ -13,13 +13,18 @@ input  logic  enable;
 output logic  [7:0] counter_output;
 
 // Internal state and wires
+
 // State is anything that's written in an always_ff
 logic  [7:0] counter_register = 120;
+
+// Wires are transient and are used in always_comb
+logic  [7:0] counter_next;
 
 // Combinational logic
 always_comb
 begin
-  counter_output = counter_register + 1'b1;
+  counter_output = counter_register;
+  counter_next   = counter_register + 1;
 end
 
 // Sequential logic
@@ -33,7 +38,7 @@ begin
   begin
     if (enable == 1'b1)
     begin
-    counter_register <= counter_output;
+    counter_register <= counter_next;
     end
   end
 end
