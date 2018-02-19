@@ -25,7 +25,7 @@ logic  [15:0] r_2;
 always_comb
 begin
   dummy_read          = r_out;
-  adder_output        = r_1 + r_2;
+  adder_output        = 2*r_1 + r_2;
 end
 
 // Sequential logic
