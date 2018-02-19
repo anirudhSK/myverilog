@@ -2,11 +2,10 @@
 `timescale 1ns / 1ps
 
 // module declaration for counter
-module counter(clk, counter_output, increment);
+module counter(clk, counter_output);
 
 // inputs for module
 input  logic  clk;
-input  logic [7:0] increment;
 
 // outputs for module
 output logic  [7:0] counter_output;
@@ -14,8 +13,7 @@ output logic  [7:0] counter_output;
 // Internal state and wires
 
 // State is anything that's written in an always_ff
-logic  [7:0] counter_register = 120;
-logic  [7:0] r_increment;
+logic  [7:0] counter_register;
 
 // Wires are transient and are used in always_comb
 logic  [7:0] counter_next;
@@ -24,13 +22,12 @@ logic  [7:0] counter_next;
 always_comb
 begin
   counter_output = counter_register;
-  counter_next   = counter_register + r_increment;
+  counter_next   = counter_register + 1;
 end
 
 // Sequential logic
 always_ff @ (posedge clk)
 begin
-  r_increment      <= increment; // reclock increment input
   counter_register <= counter_next;
 end
 
