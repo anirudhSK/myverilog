@@ -1,0 +1,5 @@
+Mon Feb 19 TODOs:
+
+1. Get Verilog file after synthesis somehow.
+2. Understand everything in the timing report, especially the r's on some lines.
+3. Correlate the timing report against the post-synthesis Verilog file.
