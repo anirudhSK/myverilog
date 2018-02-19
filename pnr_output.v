@@ -1,9 +1,9 @@
 // Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2017.3 (lin64) Build 2018833 Wed Oct  4 19:58:07 MDT 2017
-// Date        : Mon Feb 19 15:41:44 2018
+// Date        : Mon Feb 19 15:41:51 2018
 // Host        : anirudh-OptiPlex-7050 running 64-bit Ubuntu 16.04.3 LTS
-// Command     : write_verilog -force syn_output.v
+// Command     : write_verilog -force pnr_output.v
 // Design      : test
 // Purpose     : This is a Verilog netlist of the current design or from a specific cell of the design. The output is an
 //               IEEE 1364-2001 compliant Verilog HDL file that contains netlist information obtained from the input
@@ -12,6 +12,7 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
+(* ECO_CHECKSUM = "41e90306" *) 
 (* STRUCTURAL_NETLIST = "yes" *)
 module test
    (clk,
