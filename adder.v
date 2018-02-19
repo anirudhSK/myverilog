@@ -17,9 +17,9 @@ output logic  [15:0] dummy_read;
 // Internal state and wires
 
 // State is anything that's written in an always_ff
-logic  [15:0] r_1;
-logic  [15:0] r_out;
-logic  [15:0] r_2;
+(* dont_touch = "yes" *) logic  [15:0] r_1;
+(* dont_touch = "yes" *) logic  [15:0] r_out;
+(* dont_touch = "yes" *) logic  [15:0] r_2;
 
 // Combinational logic
 always_comb
