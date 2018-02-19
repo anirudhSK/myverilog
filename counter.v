@@ -8,21 +8,21 @@ module counter(clk, counter_output);
 input  logic  clk;
 
 // outputs for module
-output logic  [2:0] counter_output;
+output logic  counter_output;
 
 // Internal state and wires
 
 // State is anything that's written in an always_ff
-logic  [2:0] counter_register;
+logic counter_register;
 
 // Wires are transient and are used in always_comb
-logic  [2:0] counter_next;
+logic counter_next;
 
 // Combinational logic
 always_comb
 begin
   counter_output = counter_register;
-  counter_next   = counter_register + 1;
+  counter_next   = counter_register + 1'b1;
 end
 
 // Sequential logic
