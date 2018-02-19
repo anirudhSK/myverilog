@@ -2,11 +2,10 @@
 `timescale 1ns / 1ps
 
 // module declaration for counter
-module multiplier(clk, multiplier_output, input_multiplier);
+module multiplier(clk, multiplier_output);
 
 // inputs for module
 input  logic  clk;
-input  logic [7:0] input_multiplier;
 
 // outputs for module
 output logic  [7:0] multiplier_output;
@@ -14,24 +13,18 @@ output logic  [7:0] multiplier_output;
 // Internal state and wires
 
 // State is anything that's written in an always_ff
-logic  [7:0] multiplier_register = 1;
-logic  [7:0] r_multiplier;
-
-// Wires are transient and are used in always_comb
-logic  [7:0] multiplier_next;
+logic  [7:0] multiplier_register;
 
 // Combinational logic
 always_comb
 begin
-  multiplier_output = multiplier_register;
-  multiplier_next   = multiplier_register * r_multiplier;
+  multiplier_output = multiplier_register * 2;
 end
 
 // Sequential logic
 always_ff @ (posedge clk)
 begin
-  multiplier_register <= multiplier_next;
-  r_multiplier        <= input_multiplier;
+  multiplier_register <= multiplier_output;
 end
 
 // The end
