@@ -8,12 +8,12 @@ module multiplier(clk, multiplier_output);
 input  logic  clk;
 
 // outputs for module
-output logic  [7:0] multiplier_output;
+output logic  [2:0] multiplier_output;
 
 // Internal state and wires
 
 // State is anything that's written in an always_ff
-logic  [7:0] multiplier_register;
+logic  [2:0] multiplier_register;
 
 // Combinational logic
 always_comb
