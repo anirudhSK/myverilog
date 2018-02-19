@@ -1,0 +1,6 @@
+List of design elements: https://www.xilinx.com/support/documentation/sw_manuals/xilinx14_1/7series_scm.pdf
+Understanding timing reports: https://www.xilinx.com/support/documentation/sw_manuals/xilinx2015_1/ug906-vivado-design-analysis.pdf
+Simulation at different levels: https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug900-vivado-logic-simulation.pdf
+Quick reference: https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug975-vivado-quick-reference.pdf
+All commands: https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug835-vivado-tcl-commands.pdf
+Synthesis guide (such as the use of DON'T TOUCH attributes to prevent optimization): https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug901-vivado-synthesis.pdf
