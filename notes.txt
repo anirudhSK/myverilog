@@ -1,0 +1,9 @@
+The Digilient starter code is a bit strange in using blocking assignments (=)
+in sequential blocks (posedge blocks). For example:
+https://github.com/Digilent/Basys3/blob/master/Projects/Abacus/src/hdl/Divider.v#L52,
+but there are many such examples.
+
+The Vivado BFT tutorial on the other hand only uses non-blocking assignments in
+sequential blocks. So overall, I think we should stick to blocking assignments
+in combinational blocks and non-blocking assignments in sequential blocks even
+if other combinations are legal.
