@@ -1,9 +1,0 @@
-Mon Feb 19 TODOs:
-
-2. Understand everything in the timing report, especially the r's on some lines.
-The rs mean rising delay according to: https://www.xilinx.com/support/documentation/sw_manuals/xilinx2015_1/ug906-vivado-design-analysis.pdf
-Page 195 of that document has quite some detail on timing analysis.
-
-https://web.stanford.edu/class/ee183/handouts_spr2003/lecture5_spring2003.pdf is a pretty clear description of setup hold times etc.
-
-3. Correlate the timing report against the post-synthesis Verilog file.
