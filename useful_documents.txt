@@ -4,3 +4,5 @@ Simulation at different levels: https://www.xilinx.com/support/documentation/sw_
 Quick reference: https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug975-vivado-quick-reference.pdf
 All commands: https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug835-vivado-tcl-commands.pdf
 Synthesis guide (such as the use of DON'T TOUCH attributes to prevent optimization): https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug901-vivado-synthesis.pdf
+
+https://web.stanford.edu/class/ee183/handouts_spr2003/lecture5_spring2003.pdf
