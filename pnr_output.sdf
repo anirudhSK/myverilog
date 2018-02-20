@@ -1,7 +1,7 @@
 (DELAYFILE 
 (SDFVERSION "3.0" )
 (DESIGN "test")
-(DATE "Mon Feb 19 21:03:19 2018")
+(DATE "Mon Feb 19 21:09:21 2018")
 (VENDOR "XILINX")
 (PROGRAM "Vivado")
 (VERSION "2017.3")
@@ -24,6 +24,16 @@
     (PATHPULSE (50.0))
     (ABSOLUTE 
       (IOPATH I O (768.9:845.0:845.0) (768.9:845.0:845.0))
+    )
+  )
+)
+(CELL 
+  (CELLTYPE "LUT1")
+  (INSTANCE i_0)
+  (DELAY 
+    (PATHPULSE (50.0))
+    (ABSOLUTE 
+      (IOPATH I0 O (42.0:53.0:53.0) (42.0:53.0:53.0))
     )
   )
 )
@@ -58,16 +68,6 @@
   )
 )
 (CELL 
-  (CELLTYPE "LUT1")
-  (INSTANCE write_output_inferred_i_1)
-  (DELAY 
-    (PATHPULSE (50.0))
-    (ABSOLUTE 
-      (IOPATH I0 O (42.0:53.0:53.0) (42.0:53.0:53.0))
-    )
-  )
-)
-(CELL 
   (CELLTYPE "FDRE")
   (INSTANCE write_register_reg)
   (DELAY 
@@ -95,9 +95,9 @@
       (INTERCONNECT clk_IBUF_BUFG_inst/O read_register_reg/C (1603.0:1729.0:1729.0) (1603.0:1729.0:1729.0))
       (INTERCONNECT clk_IBUF_BUFG_inst/O write_register_reg/C (1603.0:1729.0:1729.0) (1603.0:1729.0:1729.0))
       (INTERCONNECT clk_IBUF_inst/O clk_IBUF_BUFG_inst/I (2040.0:2140.0:2140.0) (2040.0:2140.0:2140.0))
-      (INTERCONNECT read_register_reg/Q write_output_inferred_i_1/I0 (198.1:241.1:241.1) (198.1:241.1:241.1))
+      (INTERCONNECT i_0/O write_register_reg/D (47.0:59.0:59.0) (47.0:59.0:59.0))
+      (INTERCONNECT read_register_reg/Q i_0/I0 (198.1:241.1:241.1) (198.1:241.1:241.1))
       (INTERCONNECT test_input_IBUF_inst/O read_register_reg/D (646.7:798.7:798.7) (646.7:798.7:798.7))
-      (INTERCONNECT write_output_inferred_i_1/O write_register_reg/D (47.0:59.0:59.0) (47.0:59.0:59.0))
       )
     )
 )
