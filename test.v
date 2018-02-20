@@ -2,10 +2,10 @@
 module test(clk, test_input);
 
 (* dont_touch = "yes" *) input logic       clk;
-(* dont_touch = "yes" *) input logic[15:0] test_input;
-(* dont_touch = "yes" *)       logic[15:0] write_output;
-(* dont_touch = "yes" *)       logic[15:0] read_register;
-(* dont_touch = "yes" *)       logic[15:0] write_register;
+(* dont_touch = "yes" *) input logic       test_input;
+(* dont_touch = "yes" *)       logic       write_output;
+(* dont_touch = "yes" *)       logic       read_register;
+(* dont_touch = "yes" *)       logic       write_register;
 
 always_comb
 begin
