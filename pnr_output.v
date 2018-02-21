@@ -1,7 +1,7 @@
 // Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2017.3 (lin64) Build 2018833 Wed Oct  4 19:58:07 MDT 2017
-// Date        : Tue Feb 20 16:06:43 2018
+// Date        : Tue Feb 20 21:04:50 2018
 // Host        : anirudh-OptiPlex-7050 running 64-bit Ubuntu 16.04.3 LTS
 // Command     : write_verilog -sdf_anno true -mode timesim -force pnr_output.v
 // Design      : test
@@ -12,7 +12,7 @@
 `timescale 1 ps / 1 ps
 `define XIL_TIMING
 
-(* ECO_CHECKSUM = "eadd172b" *) 
+(* ECO_CHECKSUM = "41e90306" *) 
 (* NotValidForBitStream *)
 module test
    (clk,
@@ -39,11 +39,6 @@ end
   IBUF clk_IBUF_inst
        (.I(clk),
         .O(clk_IBUF));
-  LUT1 #(
-    .INIT(2'h2)) 
-    i_0
-       (.I0(read_register),
-        .O(write_output));
   (* DONT_TOUCH *) 
   (* KEEP = "yes" *) 
   FDRE read_register_reg
@@ -56,6 +51,11 @@ end
   IBUF test_input_IBUF_inst
        (.I(test_input),
         .O(test_input_IBUF));
+  LUT1 #(
+    .INIT(2'h1)) 
+    write_output_inferred_i_1
+       (.I0(read_register),
+        .O(write_output));
   (* DONT_TOUCH *) 
   (* KEEP = "yes" *) 
   FDRE write_register_reg

@@ -9,7 +9,7 @@ module test(clk, test_input);
 
 always_comb
 begin
-  write_output = (read_register * read_register * read_register) + (read_register * read_register) + read_register;
+  write_output = read_register + 1;
 end
 
 always_ff @(posedge clk)
