@@ -6,3 +6,7 @@ All commands: https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017
 Synthesis guide (such as the use of DON'T TOUCH attributes to prevent optimization): https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug901-vivado-synthesis.pdf
 
 https://web.stanford.edu/class/ee183/handouts_spr2003/lecture5_spring2003.pdf
+
+Artix 7 datasheets: https://www.xilinx.com/support/documentation/data_sheets/ds181_Artix_7_Data_Sheet.pdf
+
+Page 35 says the max clock frequency is 464 MHz for the Artix 7 with speed grade of -1
