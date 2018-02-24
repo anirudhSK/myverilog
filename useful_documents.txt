@@ -10,3 +10,5 @@ https://web.stanford.edu/class/ee183/handouts_spr2003/lecture5_spring2003.pdf
 Artix 7 datasheets: https://www.xilinx.com/support/documentation/data_sheets/ds181_Artix_7_Data_Sheet.pdf
 
 Page 35 says the max clock frequency is 464 MHz for the Artix 7 with speed grade of -1
+
+Clocking wizard to downsample clocks: http://users.wpi.edu/~rjduck/MMCM%20Vivado%20example%20Verilog.pdf
