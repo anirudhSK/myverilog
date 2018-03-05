@@ -12,3 +12,5 @@ Artix 7 datasheets: https://www.xilinx.com/support/documentation/data_sheets/ds1
 Page 35 says the max clock frequency is 464 MHz for the Artix 7 with speed grade of -1
 
 Clocking wizard to downsample clocks: http://users.wpi.edu/~rjduck/MMCM%20Vivado%20example%20Verilog.pdf
+
+Programming the FPGA (i.e., writing the bitstream into it): https://www.xilinx.com/support/documentation/sw_manuals/xilinx2014_1/ug908-vivado-programming-debugging.pdf
