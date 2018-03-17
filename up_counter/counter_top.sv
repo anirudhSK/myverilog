@@ -13,18 +13,18 @@ module counter_top (
 (* dont_touch = "yes" *) logic clk_gen;
 
 // Wires to disable seven segment display
-assign seg[0] = 1;
-assign seg[1] = 1;
-assign seg[2] = 1;
-assign seg[3] = 1;
-assign seg[4] = 1;
-assign seg[5] = 1;
-assign seg[6] = 1;
-assign an[0]  = 1;
-assign an[1]  = 1;
-assign an[2]  = 1;
-assign an[3]  = 1;
-assign dp     = 1;
+assign seg[0] = 0;
+assign seg[1] = 0;
+assign seg[2] = 0;
+assign seg[3] = 0;
+assign seg[4] = 0;
+assign seg[5] = 0;
+assign seg[6] = 0;
+assign an[0]  = 0;
+assign an[1]  = 0;
+assign an[2]  = 0;
+assign an[3]  = 0;
+assign dp     = 0;
 
 clk_gen(.clk_in(clk),
         .reset(1'b0),
