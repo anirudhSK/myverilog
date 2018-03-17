@@ -3,3 +3,5 @@
 *.pb
 *.log
 .Xil
+*.html
+*.xml
