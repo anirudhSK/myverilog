@@ -1,0 +1,6 @@
+To read from a serial port, Serial or CoolTerm seem to work well on Mac.
+On Linux, using cat or screen seeems to work well.
+
+Sometimes when the UART implementation is buggy, we need to read raw, non-ASCII
+bytes. For this cat + xxd -b (or hexdump) works well on Linux. One Mac, CoolTerm
+works well.

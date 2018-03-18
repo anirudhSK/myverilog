@@ -1,0 +1,13 @@
+Simulate using: xvlog hello_world.v && xelab hello_world && xsim hello_world --R
+
+The first argument (to xvlog) is a list of all relevant Verilog or
+SystemVerilog files. The second argument (to xelab and xsim) is the name of the
+testbench module.
+
+This is the simplest set of commands I could find based on:
+
+https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug900-vivado-logic-simulation.pdf and
+https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug975-vivado-quick-reference.pdf
+
+Btw, xsim crashes in non GUI mode for whatever reason:
+https://forums.xilinx.com/t5/Simulation-and-Verification/xsim-gives-stack-dump/td-p/810349/page/5
