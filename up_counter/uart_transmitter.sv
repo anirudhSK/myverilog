@@ -1,43 +1,105 @@
 module uart_transmitter (
-  input  logic clk,
-  input  logic i_reset,
-  input  logic [7:0] i_data,
-  input  logic i_start_transmission,
-  output logic o_data,
-  output logic o_finished_transmission,
+  input  logic clk,                      // system clock
+  input  logic i_reset,                  // This is a pulse. It remains active for one clock cycle.
+  input  logic [7:0] i_data,             // 8-bit data input
+  input  logic i_start_transmission,     // This is a pulse. It remains active for one clock cycle.
+  output logic o_tx                      // Bit being transmitted including start, data, and stop bits.
 );
 
+typedef enum {IDLE, BEGIN_TRANSMIT, TRANSMIT_START_BIT, TRANSMIT_DATA_BITS, TRANSMIT_STOP_BIT} TxState;
 parameter BAUD_RATE         = 10000;
 parameter CLOCK_FREQUENCY   = 250000000;
 parameter CYCLES_PER_SAMPLE = CLOCK_FREQUENCY / BAUD_RATE;
 
 // Registers
-logic [15:0] r_intra_sample_cycle_count; // Goes from 0 to 10000
-logic [2:0]  r_current_state;            // idle or transmitting
+logic [15:0] r_intra_sample_cycle_count; // Goes from 0 to CYCLES_PER_SAMPLE - 1
 logic        r_reset;                    // register reset input
-logic        r_data;                     // register data input
+logic [7:0]  r_data;                     // register data input
+logic        r_start_transmission;       // register start transmission input
+TxState      r_current_state;            // Current state of transmission
+logic [2:0]  r_current_bit;              // Current data bit to be transmitted
+
+// Wires
+logic [15:0] w_next_cycle_count;         // Goes from 0 to CYCLES_PER_SAMPLE - 1
+TxState      w_next_state;               // Next state of transmission
+logic [2:0]  w_next_bit;                 // Next data bit to be transmitted
 
 always_comb
 begin
-  // reset logic
+  // Default is to transmit a 1 to show that the wire is alive
+  o_tx = 1;
+
+  // logic for maintaining baud rate
   if (r_reset == 1'b1) begin
-    w_intra_sample_cycle_count = 0;
-    w_current_state = 0;
+    w_next_cycle_count = 0;
+    w_next_state = IDLE;
+    w_next_bit   = 0;
   end
   else begin
-    w_intra_sample_cycle_count = r_intra_sample_cycle_count;
-    w_current_state = r_current_state;
+    w_next_cycle_count = (r_intra_sample_cycle_count + 1) % CYCLES_PER_SAMPLE;
+    w_next_state = r_current_state;
+    w_next_bit   = r_current_bit;
   end
 
-  // transmission logic
+  // There has been a request to start transmission.
+  if ((r_current_state == IDLE) && (r_start_transmission == 1)) begin
+    w_next_state = BEGIN_TRANSMIT;
+  end
+
+  // The system clock is at a multiple of CYCLES_PER_SAMPLE,
+  // so we should transmit a start bit of duration CYCLES_PER_SAMPLE cycles
+  if ((r_current_state == BEGIN_TRANSMIT) && (w_next_cycle_count == 0)) begin
+    w_next_state = TRANSMIT_START_BIT;
+    o_tx = 0;
+  end
+
+  // Transmit the start bit
+  if ((r_current_state == TRANSMIT_START_BIT) && (w_next_cycle_count < CYCLES_PER_SAMPLE - 1)) begin
+    o_tx = 0;
+  end
+
+  // Get to the next state of transmitting 8 data bits
+  if ((r_current_state == TRANSMIT_START_BIT) && (w_next_cycle_count == 0)) begin
+    w_next_state = TRANSMIT_DATA_BITS;
+    w_next_bit   = 0;
+    o_tx         = r_data[w_next_bit];
+  end
+
+  // Transmit all the data bits
+  if ((r_current_state == TRANSMIT_DATA_BITS) && (r_current_bit < 8)) begin
+    // Move on to the next bit if you hit a multiple of CYCLES_PER_SAMPLE
+    if (w_next_cycle_count == 0) begin
+      w_next_bit = r_current_bit + 1;
+    end
+    o_tx = r_data[w_next_bit];
+  end
+
+  // Transition to transmit stop bit
+  if ((r_current_state == TRANSMIT_DATA_BITS) && (r_current_bit == 8)) begin
+    w_next_state = TRANSMIT_STOP_BIT;
+    o_tx = 1;
+  end
+
+  // Transmit the stop bit
+  if ((r_current_state == TRANSMIT_STOP_BIT) && (w_next_cycle_count < CYCLES_PER_SAMPLE - 1)) begin
+    o_tx = 1;
+  end
+
+  // Go back to idle after transmission
+  if ((r_current_state == TRANSMIT_STOP_BIT) && (w_next_cycle_count == 0)) begin
+    w_next_state = IDLE;
+    o_tx = 1;
+  end
 end
 
 always_ff @(posedge clk)
 begin
   r_reset                    <= i_reset;
   r_data                     <= i_data;
-  r_intra_sample_cycle_count <= w_intra_sample_cycle_count;
-  r_current_state            <= w_current_state;
+  r_start_transmission       <= i_start_transmission;
+  r_intra_sample_cycle_count <= w_next_cycle_count;
+  r_current_state            <= w_next_state;
+  r_current_bit              <= w_next_bit;
 end
 
 endmodule
