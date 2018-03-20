@@ -8,7 +8,7 @@ module uart_transmitter (
 
 typedef enum {IDLE, TRANSMIT_START_BIT, TRANSMIT_DATA_BITS, TRANSMIT_STOP_BIT} TxState;
 parameter BAUD_RATE         = 10000;
-parameter CLOCK_FREQUENCY   = 250000000;
+parameter CLOCK_FREQUENCY   = 250000;
 parameter CYCLES_PER_SAMPLE = CLOCK_FREQUENCY / BAUD_RATE;
 
 // Registers

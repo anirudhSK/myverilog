@@ -24,7 +24,7 @@ initial begin
   #100
   i_start_transmission = 1;
   i_data = 8'b11110000;
-  #300000
+  #4000
   $finish;
 end
 
