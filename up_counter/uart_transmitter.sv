@@ -8,7 +8,7 @@ module uart_transmitter (
 
 typedef enum {IDLE, TRANSMIT_START_BIT, TRANSMIT_DATA_BITS, TRANSMIT_STOP_BIT} TxState;
 parameter BAUD_RATE         = 10000;
-parameter CLOCK_FREQUENCY   = 250000;
+parameter CLOCK_FREQUENCY   = 100000000;
 parameter CYCLES_PER_SAMPLE = CLOCK_FREQUENCY / BAUD_RATE;
 
 // Registers
@@ -57,6 +57,7 @@ begin
 
   // Get to the next state of transmitting 8 data bits
   else if (r_current_state == TRANSMIT_DATA_BITS) begin
+    $display("Within TRANSMIT_DATA_BITS, current cycle count is %d, current bit %d, current data is %d\n", r_current_cycle_count, r_current_bit, r_data[r_current_bit]);
     w_next_cycle_count = r_current_cycle_count + 1;
     o_tx               = r_data[r_current_bit];
     w_next_cycle_count = (w_next_cycle_count == CYCLES_PER_SAMPLE) ? 0 : w_next_cycle_count;
