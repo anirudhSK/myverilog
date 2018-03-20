@@ -30,7 +30,7 @@ end
 
 initial begin
   $display("\t\ttime,\tclk,\ti_reset,\ti_start_transmission,\to_tx");
-  $monitor("%d,\t%b,\t%b,\t%b,\t%b", $time, clk, i_reset, i_start_transmission, o_tx);
+  $monitor("%d,\t%b,\t%b,\t\t%b,\t\t\t%b", $time, clk, i_reset, i_start_transmission, o_tx);
 end
 
 always
