@@ -24,7 +24,8 @@ initial begin
   #100
   i_start_transmission = 1;
   i_data = 8'b11110000;
-  #1000000 $finish;
+  #300000
+  $finish;
 end
 
 initial begin
@@ -33,6 +34,6 @@ initial begin
 end
 
 always
-  #1 clk = ~clk
+  #1 clk = ~clk;
 
 endmodule
