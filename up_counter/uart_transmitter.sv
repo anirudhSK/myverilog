@@ -1,7 +1,7 @@
 module uart_transmitter (
   input  logic clk,                      // system clock
   input  logic i_reset,                  // This is a pulse. It remains active for one clock cycle.
-  input  logic [7:0] i_data,             // 8-bit data input
+  input  logic [0:7] i_data,             // 8-bit data input
   input  logic i_start_transmission,     // This is a pulse. It remains active for one clock cycle.
   output logic o_tx                      // Bit being transmitted including start, data, and stop bits.
 );
@@ -13,16 +13,16 @@ parameter CYCLES_PER_SAMPLE = CLOCK_FREQUENCY / BAUD_RATE;
 
 // Registers
 logic        r_reset;                    // register reset input
-logic [7:0]  r_data;                     // register data input
+logic [0:7]  r_data;                     // register data input
 logic        r_start_transmission;       // register start transmission input
-logic [15:0] r_current_cycle_count;      // Cycle count for current sample; goes from 0 to CYCLES_PER_SAMPLE - 1
+logic [0:15] r_current_cycle_count;      // Cycle count for current sample; goes from 0 to CYCLES_PER_SAMPLE - 1
 TxState      r_current_state;            // Current state of transmission
-logic [3:0]  r_current_bit;              // Current data bit to be transmitted
+logic [0:3]  r_current_bit;              // Current data bit to be transmitted
 
 // Wires
-logic [15:0] w_next_cycle_count;         // Goes from 0 to CYCLES_PER_SAMPLE - 1
+logic [0:15] w_next_cycle_count;         // Goes from 0 to CYCLES_PER_SAMPLE - 1
 TxState      w_next_state;               // Next state of transmission
-logic [3:0]  w_next_bit;                 // Next data bit to be transmitted;
+logic [0:3]  w_next_bit;                 // Next data bit to be transmitted;
                                          // this is a number between 0 and 8, hence 4 bits
 
 always_comb
