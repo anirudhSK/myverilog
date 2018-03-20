@@ -6,16 +6,16 @@ module uart_transmitter (
   output logic o_tx                      // Bit being transmitted including start, data, and stop bits.
 );
 
-typedef enum {IDLE, BEGIN_TRANSMIT, TRANSMIT_START_BIT, TRANSMIT_DATA_BITS, TRANSMIT_STOP_BIT} TxState;
+typedef enum {IDLE, TRANSMIT_START_BIT, TRANSMIT_DATA_BITS, TRANSMIT_STOP_BIT} TxState;
 parameter BAUD_RATE         = 10000;
 parameter CLOCK_FREQUENCY   = 250000000;
 parameter CYCLES_PER_SAMPLE = CLOCK_FREQUENCY / BAUD_RATE;
 
 // Registers
-logic [15:0] r_intra_sample_cycle_count; // Goes from 0 to CYCLES_PER_SAMPLE - 1
 logic        r_reset;                    // register reset input
 logic [7:0]  r_data;                     // register data input
 logic        r_start_transmission;       // register start transmission input
+logic [15:0] r_current_cycle_count;      // Cycle count for current sample; goes from 0 to CYCLES_PER_SAMPLE - 1
 TxState      r_current_state;            // Current state of transmission
 logic [2:0]  r_current_bit;              // Current data bit to be transmitted
 
@@ -36,59 +36,44 @@ begin
     w_next_bit   = 0;
   end
   else begin
-    w_next_cycle_count = (r_intra_sample_cycle_count + 1) % CYCLES_PER_SAMPLE;
+    w_next_cycle_count = r_current_cycle_count;
     w_next_state = r_current_state;
     w_next_bit   = r_current_bit;
   end
 
   // There has been a request to start transmission.
-  if ((r_current_state == IDLE) && (r_start_transmission == 1)) begin
-    w_next_state = BEGIN_TRANSMIT;
+  if (r_current_state == IDLE) begin
+    w_next_state = (r_start_transmission == 1) ? TRANSMIT_START_BIT : r_current_state;
   end
 
-  // The system clock is at a multiple of CYCLES_PER_SAMPLE,
-  // so we should transmit a start bit of duration CYCLES_PER_SAMPLE cycles
-  if ((r_current_state == BEGIN_TRANSMIT) && (w_next_cycle_count == 0)) begin
-    w_next_state = TRANSMIT_START_BIT;
+  // We should transmit a start bit of duration CYCLES_PER_SAMPLE cycles
+  else if (r_current_state == TRANSMIT_START_BIT) begin
+    w_next_cycle_count = r_current_cycle_count + 1;
     o_tx = 0;
-  end
-
-  // Transmit the start bit
-  if ((r_current_state == TRANSMIT_START_BIT) && (w_next_cycle_count < CYCLES_PER_SAMPLE - 1)) begin
-    o_tx = 0;
+    w_next_state       = (w_next_cycle_count == CYCLES_PER_SAMPLE) ? TRANSMIT_DATA_BITS : TRANSMIT_START_BIT;
+    w_next_cycle_count = (w_next_cycle_count == CYCLES_PER_SAMPLE) ? 0 : w_next_cycle_count;
   end
 
   // Get to the next state of transmitting 8 data bits
-  if ((r_current_state == TRANSMIT_START_BIT) && (w_next_cycle_count == 0)) begin
-    w_next_state = TRANSMIT_DATA_BITS;
-    w_next_bit   = 0;
-    o_tx         = r_data[w_next_bit];
-  end
-
-  // Transmit all the data bits
-  if ((r_current_state == TRANSMIT_DATA_BITS) && (r_current_bit < 8)) begin
-    // Move on to the next bit if you hit a multiple of CYCLES_PER_SAMPLE
+  else if (r_current_state == TRANSMIT_DATA_BITS) begin
+    w_next_cycle_count = r_current_cycle_count + 1;
+    o_tx               = r_data[r_current_bit];
+    w_next_cycle_count = (w_next_cycle_count == CYCLES_PER_SAMPLE) ? 0 : w_next_cycle_count;
     if (w_next_cycle_count == 0) begin
-      w_next_bit = r_current_bit + 1;
+      w_next_bit = w_next_bit + 1;
     end
-    o_tx = r_data[w_next_bit];
-  end
-
-  // Transition to transmit stop bit
-  if ((r_current_state == TRANSMIT_DATA_BITS) && (r_current_bit == 8)) begin
-    w_next_state = TRANSMIT_STOP_BIT;
-    o_tx = 1;
+    w_next_state       = (w_next_bit == 8) ? TRANSMIT_STOP_BIT : TRANSMIT_DATA_BITS;
+    w_next_bit         = (w_next_bit == 8) ? 0 : w_next_bit;
   end
 
   // Transmit the stop bit
-  if ((r_current_state == TRANSMIT_STOP_BIT) && (w_next_cycle_count < CYCLES_PER_SAMPLE - 1)) begin
+  else begin
+    // if (r_current_state == TRANSMIT_STOP_BIT) begin (This is implicit.)
+    // Verilog doesn't seem to have asserts during synthesis.
+    w_next_cycle_count = r_current_cycle_count + 1;
     o_tx = 1;
-  end
-
-  // Go back to idle after transmission
-  if ((r_current_state == TRANSMIT_STOP_BIT) && (w_next_cycle_count == 0)) begin
-    w_next_state = IDLE;
-    o_tx = 1;
+    w_next_state       = (w_next_cycle_count == CYCLES_PER_SAMPLE) ? IDLE : TRANSMIT_STOP_BIT;
+    w_next_cycle_count = (w_next_cycle_count == CYCLES_PER_SAMPLE) ? 0 : w_next_cycle_count;
   end
 end
 
@@ -97,7 +82,7 @@ begin
   r_reset                    <= i_reset;
   r_data                     <= i_data;
   r_start_transmission       <= i_start_transmission;
-  r_intra_sample_cycle_count <= w_next_cycle_count;
+  r_current_cycle_count      <= w_next_cycle_count;
   r_current_state            <= w_next_state;
   r_current_bit              <= w_next_bit;
 end
