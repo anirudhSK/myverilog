@@ -93,12 +93,14 @@ int main()
 #ifdef DISPLAY_STRING
             buf[rdlen] = 0;
             printf("Time: %d.%06ld Read %d: \"%s\"\n", (int)now.tv_sec, (long)now.tv_usec, rdlen, buf);
+            fflush(stdout);
 #else /* display hex */
             unsigned char   *p;
             printf("Time: %d.%06ld Read %d:", (int)now.tv_sec, (long)now.tv_usec, rdlen);
             for (p = buf; rdlen-- > 0; p++)
                 printf(" 0x%x", *p);
             printf("\n");
+            fflush(stdout);
 #endif
         } else if (rdlen < 0) {
             printf("Error from read: %d: %s\n", rdlen, strerror(errno));
