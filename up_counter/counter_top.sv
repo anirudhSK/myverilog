@@ -30,13 +30,13 @@ assign o_display_enable[2] = 0;
 assign o_display_enable[3] = 0;
 assign o_dot_enable        = 0;
 
-//clk_gen(.i_clk_in(clk),
-//        .i_reset(1'b0),
-//        .o_locked(w_locked),
-//        .o_clk_out(clk_gen));
+clk_gen(.i_clk_in(clk),
+        .i_reset(1'b0),
+        .o_locked(w_locked),
+        .o_clk_out(clk_gen));
 
 counter counter_instance (
-  .clk(clk),
+  .clk(clk_gen),
   .i_reset(i_reset),
   .o_count_next(w_out),
   .o_start_uart(w_start_uart),
@@ -45,12 +45,12 @@ counter counter_instance (
 
 led_display led_display_instance (                    
   .i_count(w_out),
-  .clk(clk),
+  .clk(clk_gen),
   .o_led(o_led)
 );
 
 uart_transmitter uart(
-  .clk(clk),
+  .clk(clk_gen),
   .i_reset(i_reset),
   .i_data(w_uart_data),
   .i_start_transmission(w_start_uart),

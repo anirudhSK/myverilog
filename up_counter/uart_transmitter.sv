@@ -7,7 +7,7 @@ module uart_transmitter (
 );
 
 typedef enum {IDLE, TRANSMIT} TxState;
-parameter CYCLES_PER_SAMPLE = 10416; // TODO: Fix this.
+parameter CYCLES_PER_SAMPLE = 22274;     // TODO: This needs to be recalculated for every new clock frequency.
 
 // Registering inputs
 logic [0:7]  r_data;                     // register data input
