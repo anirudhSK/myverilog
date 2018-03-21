@@ -17,7 +17,7 @@ IBUF clkin1_ibufg
 // * Unused inputs are tied off
 // * Unused outputs are labeled unused
 logic w_clk_out_clk_wiz_gen;
-logic [15:0] w_do_unused;
+logic [0:15] w_do_unused;
 logic w_drdy_unused;
 logic w_psdone_unused;
 logic w_locked_int;
