@@ -3,7 +3,7 @@ module counter (
   input  logic i_reset,
   output logic [0:31] o_count_next,
   output logic o_start_uart,
-  output logic [7:0] o_uart_data
+  output logic [0:7] o_uart_data
 );
 
 // Registers
