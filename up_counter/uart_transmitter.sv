@@ -88,7 +88,7 @@ end
 always_ff @(posedge clk)
 begin
   r_reset                    <= i_reset;
-  r_data                     <= i_data;
+  r_data                     <= {i_data[7], i_data[6], i_data[5], i_data[4], i_data[3], i_data[2], i_data[1], i_data[0]};
   r_start_transmission       <= i_start_transmission;
   r_current_data             <= w_next_data;
   r_current_cycle_count      <= w_next_cycle_count;
