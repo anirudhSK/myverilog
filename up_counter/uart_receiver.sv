@@ -7,7 +7,8 @@ module uart_receiver (
 );
 
 typedef enum {IDLE, START_BIT, DATA_BITS, STOP_BIT} RxState;
-parameter CYCLES_PER_SAMPLE = 22274;
+parameter FULL_BIT          = 22274;
+parameter HALF_BIT          = 11137;
 
 // Registering inputs
 logic r_reset;         // register data input
@@ -46,14 +47,14 @@ begin
     w_next_state = (r_rx == 1'b0) ? START_BIT : w_next_state;
   end else if (r_current_state == START_BIT) begin
     if (r_rx == 1'b0) begin
-      w_next_state       = (r_current_cycle_count < CYCLES_PER_SAMPLE / 2.0) ? START_BIT : DATA_BITS;
-      w_next_cycle_count = (r_current_cycle_count < CYCLES_PER_SAMPLE / 2.0) ? r_current_cycle_count + 1 : 0;
+      w_next_state       = (r_current_cycle_count < HALF_BIT) ? START_BIT : DATA_BITS;
+      w_next_cycle_count = (r_current_cycle_count < HALF_BIT) ? r_current_cycle_count + 1 : 0;
     end else begin
       w_next_state       = IDLE;
       w_next_cycle_count = 0;
     end
   end else if (r_current_state == DATA_BITS) begin
-    if (r_current_cycle_count < CYCLES_PER_SAMPLE) begin
+    if (r_current_cycle_count < FULL_BIT) begin
       w_next_cycle_count = r_current_cycle_count + 1;
     end else begin
       r_current_data[r_current_bit] = r_rx; // Sample middle bit
@@ -62,7 +63,7 @@ begin
       w_next_cycle_count = 0;
     end
   end else begin // STOP bit
-    if (r_current_cycle_count < CYCLES_PER_SAMPLE) begin
+    if (r_current_cycle_count < FULL_BIT) begin
       w_next_cycle_count = r_current_cycle_count + 1;
     end else begin
       w_next_cycle_count = 0;
