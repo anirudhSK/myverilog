@@ -6,6 +6,8 @@ module uart_transmitter (
   output logic o_tx                      // Bit being transmitted including start, data, and stop bits.
 );
 
+// TODO: Need a transmission done/ready bit
+// to signal completion of transmission.
 typedef enum {IDLE, TRANSMIT} TxState;
 parameter CYCLES_PER_SAMPLE = 22274;     // TODO: This needs to be recalculated for every new clock frequency.
 
@@ -32,7 +34,7 @@ begin
   // Default is to transmit a 1 to show that the wire is alive
   o_tx = 1;
 
-  // logic for maintaining baud rate
+  // reset logic
   if (r_reset == 1'b1) begin
     w_next_cycle_count = 0;
     w_next_state = IDLE;
