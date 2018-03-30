@@ -28,6 +28,8 @@ logic [0:3]  w_next_bit;
 
 always_comb
 begin
+  o_ready_to_read = 0;
+
   // reset logic
   if (r_reset == 1'b1) begin
     w_next_data        = 0;
