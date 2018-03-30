@@ -29,6 +29,7 @@ logic [0:3]  w_next_bit;
 always_comb
 begin
   o_ready_to_read = 0;
+  o_data = 0;
 
   // reset logic
   if (r_reset == 1'b1) begin
@@ -72,6 +73,7 @@ begin
       w_next_cycle_count = 0;
       w_next_state = IDLE;
       o_ready_to_read = 1;
+      o_data = r_current_data;
     end 
   end
 end
