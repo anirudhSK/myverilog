@@ -7,8 +7,8 @@ module uart_receiver (
 );
 
 typedef enum {IDLE, START_BIT, DATA_BITS, STOP_BIT} RxState;
-parameter FULL_BIT          = 22274;
-parameter HALF_BIT          = 11137;
+parameter FULL_BIT          = 21812;
+parameter HALF_BIT          = 10906;
 
 // Registering inputs
 logic r_reset;         // register data input
