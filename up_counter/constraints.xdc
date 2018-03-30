@@ -11,10 +11,10 @@ create_clock -period 10 -name master_clock [get_ports clk]
 set_property PACKAGE_PIN U18     [get_ports i_reset]
 set_property IOSTANDARD LVCMOS33 [get_ports i_reset]
 
-# Output signal: LED on pin L1
+# Output signal: LED on pins L1 and P1
 set_property PACKAGE_PIN L1      [get_ports o_count_led]
 set_property IOSTANDARD LVCMOS33 [get_ports o_count_led]
-set_property PACKAGE_PIN L2      [get_ports o_uart_led]
+set_property PACKAGE_PIN P1      [get_ports o_uart_led]
 set_property IOSTANDARD LVCMOS33 [get_ports o_uart_led]
 
 # Seven segment display pins
