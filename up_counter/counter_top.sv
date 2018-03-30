@@ -19,7 +19,6 @@ module counter_top (
 (* dont_touch = "yes" *) logic w_ready_to_read;
 (* dont_touch = "yes" *) logic [0:7] w_uart_rx_data;
 
-
 // Wires to enable/disable seven segment display
 // Note: 0 is enable. 1 is disable.
 assign o_segment_enable[0] = 0;
@@ -40,27 +39,27 @@ clk_gen(.i_clk_in(clk),
         .o_locked(w_locked),
         .o_clk_out(clk_gen));
 
-counter counter_instance (
-  .clk(clk_gen),
-  .i_reset(i_reset),
-  .o_count_next(w_out),
-  .o_start_uart(w_start_uart),
-  .o_uart_data(w_uart_data)
-);
-
-led_display led_display_instance (                    
-  .i_count(w_out),
-  .clk(clk_gen),
-  .o_led(o_count_led)
-);
-
-uart_transmitter uart_tx (
-  .clk(clk_gen),
-  .i_reset(i_reset),
-  .i_data(w_uart_tx_data),
-  .i_start_transmission(w_start_uart),
-  .o_tx(o_uart_tx)
-);
+// counter counter_instance (
+//   .clk(clk_gen),
+//   .i_reset(i_reset),
+//   .o_count_next(w_out),
+//   .o_start_uart(w_start_uart),
+//   .o_uart_data(w_uart_data)
+// );
+// 
+// led_display led_display_instance (                    
+//   .i_count(w_out),
+//   .clk(clk_gen),
+//   .o_led(o_count_led)
+// );
+// 
+// uart_transmitter uart_tx (
+//   .clk(clk_gen),
+//   .i_reset(i_reset),
+//   .i_data(w_uart_tx_data),
+//   .i_start_transmission(w_start_uart),
+//   .o_tx(o_uart_tx)
+// );
 
 uart_receiver uart_rx (
   .clk(clk_gen),
