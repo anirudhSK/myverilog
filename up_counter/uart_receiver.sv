@@ -58,7 +58,7 @@ begin
     end
   end else if (r_current_state == DATA_BITS) begin
     if (r_current_cycle_count == FULL_BIT) begin
-      r_current_data[r_current_bit] = r_rx; // Sample middle bit
+      w_next_data[r_current_bit] = r_rx; // Sample middle bit
       w_next_bit   = (r_current_bit == 7) ? 0        : r_current_bit + 1;
       w_next_state = (r_current_bit == 7) ? STOP_BIT : w_next_state; 
       w_next_cycle_count = 0;
