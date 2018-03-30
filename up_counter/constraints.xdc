@@ -12,8 +12,10 @@ set_property PACKAGE_PIN U18     [get_ports i_reset]
 set_property IOSTANDARD LVCMOS33 [get_ports i_reset]
 
 # Output signal: LED on pin L1
-set_property PACKAGE_PIN L1      [get_ports o_led]
-set_property IOSTANDARD LVCMOS33 [get_ports o_led]
+set_property PACKAGE_PIN L1      [get_ports o_count_led]
+set_property IOSTANDARD LVCMOS33 [get_ports o_count_led]
+set_property PACKAGE_PIN L2      [get_ports o_uart_led]
+set_property IOSTANDARD LVCMOS33 [get_ports o_uart_led]
 
 # Seven segment display pins
 # Need to set these to high to disable.
@@ -47,3 +49,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {o_display_enable[3]}]
 # UART TX
 set_property PACKAGE_PIN A18 [get_ports o_uart_tx]
 set_property IOSTANDARD LVCMOS33 [get_ports o_uart_tx]
+
+# UART RX
+set_property PACKAGE_PIN B18 [get_ports i_uart_rx]
+set_property IOSTANDARD LVCMOS33 [get_ports i_uart_rx]
