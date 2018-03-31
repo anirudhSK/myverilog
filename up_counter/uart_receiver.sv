@@ -31,7 +31,7 @@ always_comb
 begin
   o_ready_to_read = 0;
   o_data = 0;
-  o_debug = 0;
+  o_debug = r_current_data;
 
   // reset logic
   if (r_reset == 1'b1) begin
@@ -47,7 +47,6 @@ begin
     w_next_bit         = r_current_bit;
   end
 
-  o_debug = {r_rx, r_rx, r_rx, r_rx, r_rx, r_rx, r_rx, r_rx};
   if (r_current_state == IDLE) begin
     // Look for a low bit
     w_next_state       = (r_rx == 1'b0) ? START_BIT : w_next_state;
@@ -56,7 +55,6 @@ begin
     if (r_rx == 1'b0) begin
       w_next_state       = (r_current_cycle_count == HALF_BIT) ? DATA_BITS : START_BIT;
       w_next_cycle_count = (r_current_cycle_count == HALF_BIT) ? 1         : r_current_cycle_count + 1;
-      o_debug = 8'b10101010;
     end else begin
       w_next_state       = IDLE;
       w_next_cycle_count = 0;
@@ -65,7 +63,7 @@ begin
     if (r_current_cycle_count == FULL_BIT) begin
       w_next_data[r_current_bit] = r_rx; // Sample middle bit
       w_next_bit   = (r_current_bit == 7) ? 0        : r_current_bit + 1;
-      w_next_state = (r_current_bit == 7) ? STOP_BIT : w_next_state; 
+      w_next_state = (r_current_bit == 7) ? STOP_BIT : w_next_state;
       w_next_cycle_count = 0;
     end else begin
       w_next_cycle_count = r_current_cycle_count + 1;
@@ -80,7 +78,7 @@ begin
       w_next_data  = 0;
       o_ready_to_read = 1;
       o_data = r_current_data;
-    end 
+    end
   end
 end
 
