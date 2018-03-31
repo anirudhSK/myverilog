@@ -17,6 +17,24 @@ set_property IOSTANDARD LVCMOS33 [get_ports o_count_led]
 set_property PACKAGE_PIN P1      [get_ports o_uart_led]
 set_property IOSTANDARD LVCMOS33 [get_ports o_uart_led]
 
+# Output signal: LED on pins Ld7 through 0
+set_property PACKAGE_PIN V14      [get_ports {o_uart_rx_data[0]}]
+set_property IOSTANDARD  LVCMOS33 [get_ports {o_uart_rx_data[0]}]
+set_property PACKAGE_PIN U14      [get_ports {o_uart_rx_data[1]}]
+set_property IOSTANDARD  LVCMOS33 [get_ports {o_uart_rx_data[1]}]
+set_property PACKAGE_PIN U15      [get_ports {o_uart_rx_data[2]}]
+set_property IOSTANDARD  LVCMOS33 [get_ports {o_uart_rx_data[2]}]
+set_property PACKAGE_PIN W18      [get_ports {o_uart_rx_data[3]}]
+set_property IOSTANDARD  LVCMOS33 [get_ports {o_uart_rx_data[3]}]
+set_property PACKAGE_PIN V19      [get_ports {o_uart_rx_data[4]}]
+set_property IOSTANDARD  LVCMOS33 [get_ports {o_uart_rx_data[4]}]
+set_property PACKAGE_PIN U19      [get_ports {o_uart_rx_data[5]}]
+set_property IOSTANDARD  LVCMOS33 [get_ports {o_uart_rx_data[5]}]
+set_property PACKAGE_PIN E19      [get_ports {o_uart_rx_data[6]}]
+set_property IOSTANDARD  LVCMOS33 [get_ports {o_uart_rx_data[6]}]
+set_property PACKAGE_PIN U16      [get_ports {o_uart_rx_data[7]}]
+set_property IOSTANDARD  LVCMOS33 [get_ports {o_uart_rx_data[7]}]
+
 # Seven segment display pins
 # Need to set these to high to disable.
 set_property PACKAGE_PIN W7 [get_ports {o_segment_enable[0]}]
