@@ -63,10 +63,7 @@ clk_gen(.i_clk_in(clk),
 
 uart_receiver uart_rx (
   .clk(clk_gen),
-  .i_reset(i_reset),
   .i_rx(i_uart_rx),
-  .o_data(w_uart_rx_data),
-  .o_ready_to_read(w_ready_to_read),
   .o_debug(o_debug)
 );
 
