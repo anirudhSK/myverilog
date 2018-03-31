@@ -7,7 +7,6 @@ module counter_top (
   output logic [0:6] o_segment_enable, // Is a segment (a to g, i.e., 7 segments) enabled (0) or not (1)?
   output logic [0:3] o_display_enable, // Is a particular 7 segment display enabled (0) or not (1)? There are 4 such displays.
   output logic o_dot_enable,           // Is the dot on the 7 segment display enabled (0) or not (1)?
-  output logic o_uart_tx,              // output from UART
   output logic [0:7] o_debug           // For LEDS from received UART data
 );
 
