@@ -18,13 +18,13 @@ logic        r_start_transmission;       // register start transmission input
 
 // True registers
 logic [0:9]  r_current_data;             // Persistent storage for data that persists even if data input changes
-logic [0:15] r_current_cycle_count;      // Cycle count for current sample; goes from 0 to CYCLES_PER_SAMPLE - 1
+logic [0:23] r_current_cycle_count;      // Cycle count for current sample; goes from 0 to CYCLES_PER_SAMPLE - 1
 TxState      r_current_state;            // Current state of transmission
 logic [0:3]  r_current_bit;              // Current data bit to be transmitted
 
 // Wires
 logic [0:9]  w_next_data;                // Next piece of data
-logic [0:15] w_next_cycle_count;         // Goes from 0 to CYCLES_PER_SAMPLE - 1
+logic [0:23] w_next_cycle_count;         // Goes from 0 to CYCLES_PER_SAMPLE - 1
 TxState      w_next_state;               // Next state of transmission
 logic [0:3]  w_next_bit;                 // Next data bit to be transmitted;
                                          // this is a number between 0 and 10, hence 4 bits
