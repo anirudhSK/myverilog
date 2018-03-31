@@ -64,6 +64,8 @@ set_property IOSTANDARD LVCMOS33 [get_ports {o_display_enable[2]}]
 set_property PACKAGE_PIN W4 [get_ports {o_display_enable[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {o_display_enable[3]}]
 
-# UART RX
+# UART TX and RX
+set_property PACKAGE_PIN A18 [get_ports o_uart_tx]
+set_property IOSTANDARD LVCMOS33 [get_ports o_uart_tx]
 set_property PACKAGE_PIN B18 [get_ports i_uart_rx]
 set_property IOSTANDARD LVCMOS33 [get_ports i_uart_rx]
