@@ -76,6 +76,8 @@ begin
     end else begin
       w_next_cycle_count = 0;
       w_next_state = IDLE;
+      w_next_bit   = 0;
+      w_next_data  = 0;
       o_ready_to_read = 1;
       o_data = r_current_data;
     end 
