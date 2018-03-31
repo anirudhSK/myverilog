@@ -50,8 +50,8 @@ begin
   if (r_current_state == IDLE) begin
     // Look for a low bit
     w_next_state       = (r_rx == 1'b0) ? START_BIT : w_next_state;
-    w_next_cycle_count = 1; // Already saw one low sample.
-    o_debug = 8'b11111111;
+    w_next_cycle_count = (r_rx == 1'b0) ? 1 : w_next_cycle_count; // Already saw one low sample.
+    o_debug = {r_rx, r_rx, r_rx, r_rx, r_rx, r_rx, r_rx, r_rx};
   end else if (r_current_state == START_BIT) begin
     if (r_rx == 1'b0) begin
       w_next_state       = (r_current_cycle_count == HALF_BIT) ? DATA_BITS : START_BIT;
