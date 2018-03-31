@@ -8,7 +8,7 @@ module counter_top (
   output logic [0:3] o_display_enable, // Is a particular 7 segment display enabled (0) or not (1)? There are 4 such displays.
   output logic o_dot_enable,           // Is the dot on the 7 segment display enabled (0) or not (1)?
   output logic o_uart_tx,              // output from UART
-  output logic [0:7] o_uart_rx_data          // For LEDS from received UART data
+  output logic [0:7] o_debug           // For LEDS from received UART data
 );
 
 // Intermediate wires
@@ -67,7 +67,8 @@ uart_receiver uart_rx (
   .i_reset(i_reset),
   .i_rx(i_uart_rx),
   .o_data(w_uart_rx_data),
-  .o_ready_to_read(w_ready_to_read)
+  .o_ready_to_read(w_ready_to_read),
+  .o_debug(o_debug)
 );
 
 uart_led_output uart_led_instance (
@@ -76,10 +77,5 @@ uart_led_output uart_led_instance (
   .clk(clk_gen),
   .o_led(o_uart_led)
 );
-
-always_comb
-begin
-  o_uart_rx_data = w_uart_rx_data;
-end
 
 endmodule

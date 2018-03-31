@@ -3,7 +3,8 @@ module uart_receiver (
   input  logic i_reset,
   input  logic i_rx,
   output logic [0:7] o_data,
-  output logic o_ready_to_read
+  output logic o_ready_to_read,
+  output logic [0:7] o_debug
 );
 
 typedef enum {IDLE, START_BIT, DATA_BITS, STOP_BIT} RxState;
@@ -30,6 +31,7 @@ always_comb
 begin
   o_ready_to_read = 0;
   o_data = 0;
+  o_debug = 0;
 
   // reset logic
   if (r_reset == 1'b1) begin
@@ -49,10 +51,12 @@ begin
     // Look for a low bit
     w_next_state       = (r_rx == 1'b0) ? START_BIT : w_next_state;
     w_next_cycle_count = 1; // Already saw one low sample.
+    o_debug = 8'b11111111;
   end else if (r_current_state == START_BIT) begin
     if (r_rx == 1'b0) begin
       w_next_state       = (r_current_cycle_count == HALF_BIT) ? DATA_BITS : START_BIT;
       w_next_cycle_count = (r_current_cycle_count == HALF_BIT) ? 1         : r_current_cycle_count + 1;
+      o_debug = 8'b10101010;
     end else begin
       w_next_state       = IDLE;
       w_next_cycle_count = 0;
