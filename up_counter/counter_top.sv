@@ -40,7 +40,7 @@ counter counter_instance (
   .i_reset(i_reset),
   .o_count_next(w_out),
   .o_start_uart(w_start_uart),
-  .o_uart_data(w_uart_data)
+  .o_uart_data(w_uart_tx_data)
 );
 
 led_display led_display_instance (                    
