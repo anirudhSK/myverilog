@@ -7,3 +7,6 @@ The Vivado BFT tutorial on the other hand only uses non-blocking assignments in
 sequential blocks. So overall, I think we should stick to blocking assignments
 in combinational blocks and non-blocking assignments in sequential blocks even
 if other combinations are legal.
+
+This logic analyzer (courtesy Amit) seems really worth buying:
+https://www.saleae.com/?gclid=EAIaIQobChMIk-nAsaaY2gIVhYzICh2AXwInEAAYASAAEgLpT_D_BwE
