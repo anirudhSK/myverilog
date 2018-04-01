@@ -1,3 +1,5 @@
+`default_nettype none
+
 module counter_top (
   input  logic clk,
   input  logic i_reset,
