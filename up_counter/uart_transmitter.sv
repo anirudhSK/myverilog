@@ -9,7 +9,7 @@ module uart_transmitter (
 // TODO: Need a transmission done/ready bit
 // to signal completion of transmission.
 typedef enum {IDLE, TRANSMIT} TxState;
-parameter CYCLES_PER_SAMPLE = 697394;     // TODO: This needs to be recalculated for every new clock frequency.
+parameter CYCLES_PER_SAMPLE = 21812;     // TODO: This needs to be recalculated for every new clock frequency.
 
 // Registering inputs
 logic [0:7]  r_data;                     // register data input
