@@ -1,0 +1,13 @@
+1. This contains a pretty good set of debugging aids for implementing a UART receiver
+(http://zipcpu.com/blog/2017/05/24/serial-port.html)
+
+2. Using a lower baud rate makes things more debugging because signals last longer.
+
+3. Flashing an LED for an instant doesn't help with debugging because it doesn't persist
+long enough.
+
+4. The CYCLES_PER_SAMPLE, FULL_BIT, and HALF_BIT parameters need to be updated
+every time the clock rate or baud rate changes.
+
+5. Using multiple LEDs to show multi-bit patterns is a reasonable way to get output while
+debuggin the UART receiver itself.
