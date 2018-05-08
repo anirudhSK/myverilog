@@ -77,7 +77,7 @@ begin
       w_next_bit   = 0;
       w_next_data  = 0;
       o_ready_to_read = 1;
-      o_data = r_current_data;
+      o_data = {r_current_data[7], r_current_data[6], r_current_data[5], r_current_data[4], r_current_data[3], r_current_data[2], r_current_data[1], r_current_data[0]};
     end
   end
 end
