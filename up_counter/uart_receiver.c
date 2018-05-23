@@ -6,6 +6,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <stdbool.h>
 
 int set_interface_attribs(int fd, int speed)
 {
@@ -59,9 +60,15 @@ void set_mincount(int fd, int mcount)
 }
 
 
-int main()
+int main(int argc, char ** argv)
 {
-    char *portname = "/dev/ttyUSB1";
+    if (argc < 3) {
+      printf("Usage: uart_receiver usb_device display_ascii\n");
+      exit(1);
+    }
+
+    char *portname = argv[1];
+    bool display_ascii = strcmp(argv[2], "ascii") == 0;
     int fd;
     int wlen;
 
@@ -90,18 +97,18 @@ int main()
         if (rdlen > 0) {
             struct timeval now;
             gettimeofday(&now, NULL);
-#ifdef DISPLAY_STRING
-            buf[rdlen] = 0;
-            printf("Time: %d.%06ld Read %d: \"%s\"\n", (int)now.tv_sec, (long)now.tv_usec, rdlen, buf);
-            fflush(stdout);
-#else /* display hex */
-            unsigned char   *p;
-            printf("Time: %d.%06ld Read %d:", (int)now.tv_sec, (long)now.tv_usec, rdlen);
-            for (p = buf; rdlen-- > 0; p++)
-                printf(" 0x%x", *p);
-            printf("\n");
-            fflush(stdout);
-#endif
+            if (display_ascii) {
+               buf[rdlen] = 0;
+               printf("Time: %d.%06ld Read %d: \"%s\"\n", (int)now.tv_sec, (long)now.tv_usec, rdlen, buf);
+               fflush(stdout);
+            }  else { /* display hex */
+               unsigned char   *p;
+               printf("Time: %d.%06ld Read %d:", (int)now.tv_sec, (long)now.tv_usec, rdlen);
+               for (p = buf; rdlen-- > 0; p++)
+                   printf(" 0x%x", *p);
+               printf("\n");
+               fflush(stdout);
+            }
         } else if (rdlen < 0) {
             printf("Error from read: %d: %s\n", rdlen, strerror(errno));
         }
